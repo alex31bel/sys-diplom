@@ -333,7 +333,7 @@ resource "yandex_compute_instance" "web-server1" {
   resources {
     cores = 2
     memory = 2
-    core_fraction = 50
+    core_fraction = 100
   }
 
   boot_disk {
@@ -363,7 +363,7 @@ resource "yandex_compute_instance" "web-server2" {
   resources {
     cores  = 2
     memory = 2
-    core_fraction = 20
+    core_fraction = 100
   }
 
   boot_disk {
