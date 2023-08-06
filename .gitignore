@@ -1,4 +1,4 @@
 variable.tf
 *.bak
-**/.terraform.lock.hcl
-**/.terraform
+**/terraform/.terraform.lock.hcl
+**/terraform/.terraform
