@@ -13,3 +13,11 @@ repo_update: true
 repo_upgrade: true
 apt:
   preserve_sources_list: true
+runcmd:
+  - ssh-add
+  - ssh -A mashkov@${yandex_compute_instance.web-server1.network_interface.0.ip_address}
+  - ssh -A mashkov@${yandex_compute_instance.web-server2.network_interface.0.ip_address}
+  - ssh -A mashkov@${yandex_compute_instance.prometheus.network_interface.0.ip_address}
+  - ssh -A mashkov@${yandex_compute_instance.grafana.network_interface.0.nat_ip_address}
+  - ssh -A mashkov@${yandex_compute_instance.elasticsearch.network_interface.0.ip_address}
+  - ssh -A mashkov@${yandex_compute_instance.kibana.network_interface.0.nat_ip_address}
