@@ -2,7 +2,7 @@ output "output-ip-host" {
   value = <<OUTPUT
 
 Application Load Balancer
-external = ${yandex_alb_load_balancer.load-balancer.listener.*.endpoint.0.address.0.external_ipv4_address}
+external = ${yandex_alb_load_balancer.load-balancer.listener.0.endpoint.0.address.0.external_ipv4_address.0.address}
 
 VM Bastion Host
 internal = ${yandex_compute_instance.bastion-host.network_interface.0.ip_address}
@@ -80,7 +80,7 @@ output "output-finish" {
   value = <<OUTPUT
 
 ## Website address ##
-http://${yandex_alb_load_balancer.load-balancer.listener.*.endpoint.0.address.0.external_ipv4_address}/
+http://${yandex_alb_load_balancer.load-balancer.listener.0.endpoint.0.address.0.external_ipv4_address.0.address}/
 
 ## Grafana ##
 http://${yandex_compute_instance.grafana.network_interface.0.nat_ip_address}:3000/login/
