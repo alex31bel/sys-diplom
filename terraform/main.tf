@@ -316,7 +316,7 @@ resource "yandex_compute_instance" "bastion-host" {
   }
 
   metadata = {
-    user-data = "${file("./bastion-host.yaml")}"
+    user-data = "${file("./main.yaml")}"
   }
 
   scheduling_policy {

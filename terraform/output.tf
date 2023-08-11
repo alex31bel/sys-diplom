@@ -55,23 +55,23 @@ kibana ansible_host=${yandex_compute_instance.kibana.network_interface.0.ip_addr
 
 [webservers:vars]
 ansible_ssh_user=mashkov
-ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q -i /home/stanislav/.ssh/id_rsa mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
 
 [prometheus:vars]
 ansible_ssh_user=mashkov
-ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q -i /home/stanislav/.ssh/id_rsa mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
 
 [grafana:vars]
 ansible_ssh_user=mashkov
-ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q -i /home/stanislav/.ssh/id_rsa mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
 
 [elasticsearch:vars]
 ansible_ssh_user=mashkov
-ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q -i /home/stanislav/.ssh/id_rsa mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
 
 [kibana:vars]
 ansible_ssh_user=mashkov
-ansible_ssh_common_args='-o ProxyCommand="ssh -p 22 -W %h:%p -q -i /home/stanislav/.ssh/id_rsa mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address}"'
 
 OUTPUT
 }
