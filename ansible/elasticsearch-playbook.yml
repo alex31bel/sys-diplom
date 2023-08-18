@@ -1,0 +1,7 @@
+- hosts: elasticsearch
+  remote_user: mashkov
+  become: yes
+  become_method: sudo
+  
+  roles:
+    - elasticsearch
