@@ -34,7 +34,7 @@ OUTPUT
 output "output-ansible-hosts" {
   value = <<OUTPUT
 
-[bastion-host]
+[bastionhost]
 bastion-host ansible_host=${yandex_compute_instance.bastion-host.network_interface.0.nat_ip_address} ansible_ssh_user=mashkov
 
 [webservers]
@@ -42,16 +42,16 @@ web1 ansible_host=${yandex_compute_instance.web-server1.network_interface.0.ip_a
 web2 ansible_host=${yandex_compute_instance.web-server2.network_interface.0.ip_address}
 
 [prometheus]
-prometheus ansible_host=${yandex_compute_instance.prometheus.network_interface.0.ip_address}
+prometheus-host ansible_host=${yandex_compute_instance.prometheus.network_interface.0.ip_address}
 
 [grafana]
-grafana ansible_host=${yandex_compute_instance.grafana.network_interface.0.ip_address}
+grafana-host ansible_host=${yandex_compute_instance.grafana.network_interface.0.ip_address}
 
 [elasticsearch]
-elasticsearch ansible_host=${yandex_compute_instance.elasticsearch.network_interface.0.ip_address}
+elasticsearch-host ansible_host=${yandex_compute_instance.elasticsearch.network_interface.0.ip_address}
 
 [kibana]
-kibana ansible_host=${yandex_compute_instance.kibana.network_interface.0.ip_address}
+kibana-host ansible_host=${yandex_compute_instance.kibana.network_interface.0.ip_address}
 
 [webservers:vars]
 ansible_ssh_user=mashkov
