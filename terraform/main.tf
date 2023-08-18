@@ -142,8 +142,6 @@ resource "yandex_vpc_security_group" "security-bastion-host" {
 
   egress {
     protocol       = "ANY"
-    from_port      = 0
-    to_port        = 65535
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -160,8 +158,6 @@ resource "yandex_vpc_security_group" "security-ssh-traffic" {
 
   ingress {
     protocol       = "ICMP"
-    from_port      = 0
-    to_port        = 65535
     v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
   }
 }
@@ -192,8 +188,6 @@ resource "yandex_vpc_security_group" "security-webservers" {
   egress {
     protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    from_port      = 0
-    to_port        = 65535
   }
 }
 
@@ -211,8 +205,6 @@ resource "yandex_vpc_security_group" "security-prometheus" {
   egress {
     protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    from_port      = 0
-    to_port        = 65535
   }
 }
 
@@ -230,7 +222,7 @@ resource "yandex_vpc_security_group" "security-public-grafana" {
   egress {
     protocol       = "TCP"
     port           = 9090
-    v4_cidr_blocks = ["192.168.30.3/32"]
+    v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -266,7 +258,7 @@ resource "yandex_vpc_security_group" "security-public-kibana" {
   egress {
     protocol       = "TCP"
     port           = 9200
-    v4_cidr_blocks = ["192.168.30.22/32"]
+    v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -278,15 +270,11 @@ resource "yandex_vpc_security_group" "security-public-alb" {
   ingress {
     protocol       = "TCP"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    from_port      = 0
-    to_port        = 65535
   }
 
   egress {
     protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
-    from_port      = 0
-    to_port        = 65535
   }
 }
 
@@ -345,7 +333,7 @@ resource "yandex_compute_instance" "web-server1" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
-    nat       = false
+    nat       = true
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-webservers.id]
   }
 
@@ -375,7 +363,7 @@ resource "yandex_compute_instance" "web-server2" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-2.id
-    nat       = false
+    nat       = true
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-webservers.id]
   }
 
@@ -405,7 +393,7 @@ resource "yandex_compute_instance" "prometheus" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-3.id
-    nat       = false
+    nat       = true
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-prometheus.id]
   }
 
@@ -465,7 +453,7 @@ resource "yandex_compute_instance" "elasticsearch" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-3.id
-    nat       = false
+    nat       = true
     security_group_ids = [yandex_vpc_security_group.security-elasticsearch.id, yandex_vpc_security_group.security-ssh-traffic.id]
   }
 
