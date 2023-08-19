@@ -9,7 +9,7 @@
   copy:
     src: website
     dest: /var/www
-    mode: preserve
+    mode: 0755
 
 - name: replace nginx config
   copy: 
