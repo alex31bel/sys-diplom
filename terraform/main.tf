@@ -21,6 +21,7 @@ resource "yandex_vpc_subnet" "subnet-1" {
   name           = "subnet1"
   zone           = "ru-central1-a"
   network_id     = yandex_vpc_network.network-1.id
+  route_table_id = yandex_vpc_route_table.rt.id
   v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
@@ -28,6 +29,7 @@ resource "yandex_vpc_subnet" "subnet-2" {
   name           = "subnet2"
   zone           = "ru-central1-b"
   network_id     = yandex_vpc_network.network-1.id
+  route_table_id = yandex_vpc_route_table.rt.id
   v4_cidr_blocks = ["192.168.20.0/24"]
 }
 
@@ -35,7 +37,23 @@ resource "yandex_vpc_subnet" "subnet-3" {
   name           = "subnet3"
   zone           = "ru-central1-c"
   network_id     = yandex_vpc_network.network-1.id
+  route_table_id = yandex_vpc_route_table.rt.id
   v4_cidr_blocks = ["192.168.30.0/24"]
+}
+
+resource "yandex_vpc_gateway" "nat_gateway" {
+  name = "nat-gateway"
+  shared_egress_gateway {}
+}
+
+resource "yandex_vpc_route_table" "rt" {
+  name       = "nat-route-table"
+  network_id = yandex_vpc_network.network-1.id
+
+  static_route {
+    destination_prefix = "0.0.0.0/0"
+    gateway_id         = yandex_vpc_gateway.nat_gateway.id
+  }
 }
 
 # -----Target Group-----
@@ -222,7 +240,7 @@ resource "yandex_vpc_security_group" "security-public-grafana" {
   egress {
     protocol       = "TCP"
     port           = 9090
-    v4_cidr_blocks = ["0.0.0.0/0"]
+    v4_cidr_blocks = ["192.168.30.3/32"]
   }
 }
 
@@ -333,7 +351,7 @@ resource "yandex_compute_instance" "web-server1" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
-    nat       = true
+    nat       = false
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-webservers.id]
   }
 
@@ -363,7 +381,7 @@ resource "yandex_compute_instance" "web-server2" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-2.id
-    nat       = true
+    nat       = false
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-webservers.id]
   }
 
@@ -393,7 +411,7 @@ resource "yandex_compute_instance" "prometheus" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-3.id
-    nat       = true
+    nat       = false
     security_group_ids = [yandex_vpc_security_group.security-ssh-traffic.id, yandex_vpc_security_group.security-prometheus.id]
   }
 
@@ -453,7 +471,7 @@ resource "yandex_compute_instance" "elasticsearch" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-3.id
-    nat       = true
+    nat       = false
     security_group_ids = [yandex_vpc_security_group.security-elasticsearch.id, yandex_vpc_security_group.security-ssh-traffic.id]
   }
 
