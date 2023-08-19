@@ -35,7 +35,7 @@
     
 - name: import dashboard
   grafana_dashboard:
-    grafana_url: "http://158.160.69.207:3000"
+    grafana_url: "http://{{ hostvars['grafana-host'].ansible_host }}:3000"
     grafana_user: "admin"
     grafana_password: "admin"
     path: /etc/grafana/provisioning/dashboards/NGINX Servers Metrics.json

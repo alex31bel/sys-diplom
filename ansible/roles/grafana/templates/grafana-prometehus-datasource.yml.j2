@@ -7,7 +7,7 @@ datasources:
   type: prometheus
   access: proxy
   orgId: 1
-  url: http://{{ prometheus_ip }}:9090/
+  url: http://{{ hostvars['prometheus-host'].ansible_host }}:9090/
   # <map> fields that will be converted to json and stored in json_data
   version: 1
   # <bool> allow users to edit datasources from the UI.
