@@ -1,6 +1,0 @@
-- hosts: kibana
-  remote_user: mashkov
-  become: yes
-  become_method: sudo
-  roles:
-    - kibana

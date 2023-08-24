@@ -1,13 +1,13 @@
-- hosts: elasticsearch
+- hosts: prometheus
   remote_user: mashkov
   become: yes
   become_method: sudo
   roles:
-    - elasticsearch
+    - prometheus
 
-- hosts: webservers
+- hosts: grafana
   remote_user: mashkov
   become: yes
   become_method: sudo
   roles:
-    - filebeat
+    - grafana
