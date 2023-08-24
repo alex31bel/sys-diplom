@@ -1,13 +1,15 @@
 ---  
 - name: install reqs
-  apt: 
-    name: libfontconfig1
-    update_cache: yes
+  apt:
+    pkg:
+      - adduser
+      - libfontconfig1
+    update_cache: true
     state: latest
 
-- name: download grafana
-  get_url:
-    url: https://dl.grafana.com/enterprise/release/grafana-enterprise_10.0.3_amd64.deb
+- name: copy grafana-enterprise_10.0.3_amd64.deb
+  copy:
+    src: grafana-enterprise_10.0.3_amd64.deb
     dest: /tmp
       
 - name: install grafana
