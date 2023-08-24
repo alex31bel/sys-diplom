@@ -1,5 +1,5 @@
 ---  
-- name: install reqs
+- name: install libfontconfig1
   apt:
     pkg:
       - adduser
