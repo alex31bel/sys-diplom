@@ -461,7 +461,7 @@ resource "yandex_compute_instance" "elasticsearch" {
 
   resources {
     cores  = 4
-    memory = 6
+    memory = 8
     core_fraction = 100
   }
 
@@ -492,7 +492,7 @@ resource "yandex_compute_instance" "kibana" {
 
   resources {
     cores  = 4
-    memory = 6
+    memory = 8
     core_fraction = 100
   }
 
