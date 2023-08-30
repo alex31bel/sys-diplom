@@ -238,9 +238,8 @@ resource "yandex_vpc_security_group" "security-public-grafana" {
   }
 
   egress {
-    protocol       = "TCP"
-    port           = 9090
-    v4_cidr_blocks = ["192.168.30.3/32"]
+    protocol       = "ANY"
+    v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -256,9 +255,8 @@ resource "yandex_vpc_security_group" "security-elasticsearch" {
   }
 
   egress {
-    protocol       = "TCP"
-    port           = 5601
-    v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
+    protocol       = "ANY"
+    v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -274,8 +272,7 @@ resource "yandex_vpc_security_group" "security-public-kibana" {
   }
 
   egress {
-    protocol       = "TCP"
-    port           = 9200
+    protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -296,10 +293,11 @@ resource "yandex_vpc_security_group" "security-public-alb" {
   }
 }
 
-# -----VM Bastion Host-----
+# -----VM - Bastion Host-----
 resource "yandex_compute_instance" "bastion-host" {
 
   name = "bastion-host"
+  hostname = "bastion-host"
   zone = "ru-central1-c"
 
   resources {
@@ -330,10 +328,11 @@ resource "yandex_compute_instance" "bastion-host" {
   }
 }
 
-# -----VM Web-Server1-----
+# -----VM - Web-Server1-----
 resource "yandex_compute_instance" "web-server1" {
 
   name = "web-server1"
+  hostname = "web-server1"
   zone = "ru-central1-a"
 
   resources {
@@ -360,10 +359,11 @@ resource "yandex_compute_instance" "web-server1" {
   }
 }
 
-# -----VM Web-Server2-----
+# -----VM - Web-Server2-----
 resource "yandex_compute_instance" "web-server2" {
 
   name = "web-server2"
+  hostname = "web-server2"
   zone = "ru-central1-b"
 
   resources {
@@ -390,10 +390,11 @@ resource "yandex_compute_instance" "web-server2" {
   }
 }
 
-# -----VM Prometheus-----
+# -----VM - Prometheus-----
 resource "yandex_compute_instance" "prometheus" {
 
   name = "prometheus"
+  hostname = "prometheus"
   zone = "ru-central1-c"
 
   resources {
@@ -405,7 +406,7 @@ resource "yandex_compute_instance" "prometheus" {
   boot_disk {
     initialize_params {
       image_id = "${var.image_id_ya}"
-      size = 10
+      size = 15
     }
   }
 
@@ -420,10 +421,11 @@ resource "yandex_compute_instance" "prometheus" {
   }
 }
 
-# -----VM Grafana-----
+# -----VM - Grafana-----
 resource "yandex_compute_instance" "grafana" {
 
   name = "grafana"
+  hostname = "grafana"
   zone = "ru-central1-c"
 
   resources {
@@ -450,15 +452,16 @@ resource "yandex_compute_instance" "grafana" {
   }
 }
 
-# -----VM ElasticSearch-----
+# -----VM - ElasticSearch-----
 resource "yandex_compute_instance" "elasticsearch" {
 
   name = "elasticsearch"
+  hostname = "elasticsearch"
   zone = "ru-central1-c"
 
   resources {
     cores  = 4
-    memory = 4
+    memory = 6
     core_fraction = 100
   }
 
@@ -480,15 +483,16 @@ resource "yandex_compute_instance" "elasticsearch" {
   }
 }
 
-# -----VM Kibana-----
+# -----VM - Kibana-----
 resource "yandex_compute_instance" "kibana" {
 
   name = "kibana"
+  hostname = "kibana"
   zone = "ru-central1-c"
 
   resources {
-    cores  = 2
-    memory = 2
+    cores  = 4
+    memory = 6
     core_fraction = 100
   }
 
@@ -508,4 +512,35 @@ resource "yandex_compute_instance" "kibana" {
   metadata = {
     user-data = "${file("./main.yaml")}"
   }
+}
+
+# -----Snapshot all VM-----
+resource "yandex_compute_snapshot_schedule" "default" {
+  name           = "snapshot"
+
+  schedule_policy {
+  expression = "0 0 * * *"
+  }
+
+  snapshot_count = 7
+  retention_period = "24h"
+
+  snapshot_spec {
+    description = "snapshot-description"
+    labels = {
+      snapshot-label = "my-snapshot-label-value"
+    }
+  }
+
+  labels = {
+    my-label = "my-label-value"
+  }
+
+  disk_ids = [yandex_compute_instance.bastion-host.boot_disk.0.disk_id,
+              yandex_compute_instance.web-server1.boot_disk.0.disk_id,
+              yandex_compute_instance.web-server2.boot_disk.0.disk_id,
+              yandex_compute_instance.prometheus.boot_disk.0.disk_id,
+              yandex_compute_instance.grafana.boot_disk.0.disk_id,
+              yandex_compute_instance.elasticsearch.boot_disk.0.disk_id,
+              yandex_compute_instance.kibana.boot_disk.0.disk_id]
 }

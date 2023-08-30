@@ -18,7 +18,7 @@ alerting:
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  - "node-exp-rules.yml"
+  - "node-exporter.yml"
   # - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
@@ -36,15 +36,13 @@ scrape_configs:
 
     static_configs:
       - targets:
-    {% for server in groups['webservers'] %} 
-        - {{ hostvars['web1'].ansible_host }}:4040 
-    {% endfor %}
+        - {{ hostvars['web1'].ansible_host }}:4040
+        - {{ hostvars['web2'].ansible_host }}:4040
 
   - job_name: node
     # If prometheus-node-exporter is installed, grab stats about the local
     # machine by default.
     static_configs:
       - targets:     
-    {% for server in groups['webservers'] %} 
+        - {{ hostvars['web1'].ansible_host }}:9100
         - {{ hostvars['web2'].ansible_host }}:9100
-    {% endfor %}

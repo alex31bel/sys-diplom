@@ -52,3 +52,13 @@
         xpack.security.enrollment.enabled=true
     state: started
     restart_policy: always
+
+- name: docker container ls -a
+  tags: container_ls
+  shell: "docker container ls -a"
+  register: container_info
+
+- name: docker container ls -a result
+  tags: container_ls
+  debug:
+    msg: "{{container_info.stdout_lines}}"

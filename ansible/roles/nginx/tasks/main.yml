@@ -19,3 +19,10 @@
   
 - name: start nginx handlers
   meta: flush_handlers
+
+- name: Return service state information as fact data
+  service_facts:
+
+- name: Show the status of nginx service
+  debug:
+    var: ansible_facts.services['nginx.service']['state']

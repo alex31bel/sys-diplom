@@ -13,7 +13,14 @@
         
 - name: copy record rules
   copy: 
-    src: node-exp-rules.yml
+    src: node-exporter.yml
     dest: /etc/prometheus/
-    mode: preserve
+    mode: 0644
   notify: restart prometheus
+
+- name: Return service state information as fact data
+  service_facts:
+
+- name: Show the status of prometheus service
+  debug:
+    var: ansible_facts.services['prometheus.service']['state']

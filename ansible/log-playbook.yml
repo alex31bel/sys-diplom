@@ -5,16 +5,16 @@
   roles:
     - elasticsearch
 
-- hosts: webservers
-  remote_user: mashkov
-  become: yes
-  become_method: sudo
-  roles:
-    - filebeat
-
 - hosts: kibana
   remote_user: mashkov
   become: yes
   become_method: sudo
   roles:
     - kibana
+
+- hosts: webservers
+  remote_user: mashkov
+  become: yes
+  become_method: sudo
+  roles:
+    - filebeat

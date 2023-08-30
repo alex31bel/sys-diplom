@@ -17,3 +17,17 @@
         
 - name: setup filebeat
   shell: 'filebeat setup'
+
+- name: start filebeat
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: filebeat.service
+
+- name: Return service state information as fact data
+  service_facts:
+
+- name: Show the status of filebeat service
+  debug:
+    var: ansible_facts.services['filebeat.service']['state']

@@ -75,19 +75,3 @@ ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p mashkov@${yandex_compute_
 
 OUTPUT
 }
-
-output "output-finish" {
-  value = <<OUTPUT
-
-## Website address ##
-http://${yandex_alb_load_balancer.load-balancer.listener.0.endpoint.0.address.0.external_ipv4_address.0.address}/
-
-## Grafana ##
-http://${yandex_compute_instance.grafana.network_interface.0.nat_ip_address}:3000/login/
-
-
-## Kibana ##
-http://${yandex_compute_instance.kibana.network_interface.0.nat_ip_address}/app/home#/
-
-OUTPUT
-}
