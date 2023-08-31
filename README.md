@@ -41,11 +41,11 @@ Terraform:
 
 ![Скриншот-5](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom5.PNG)
 
-Проверяем доступность созданный ВМ с помощью ansible all -m ping
+Проверяем доступность созданных ВМ с помощью ansible all -m ping
 
 ![Скриншот-6](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom6.PNG)
 
-И переходим к установке и настройке ПО с помощью Ansible
+Переходим к установке и настройке ПО с помощью Ansible
 
 ### Сайт
 Запускаем playbook - [webservers-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/webservers-playbook.yml)
