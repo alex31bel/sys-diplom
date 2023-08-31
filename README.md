@@ -86,11 +86,13 @@ Terraform:
 ### Логи
 Запускаем playbook - [log-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-playbook.yml)
 
-По завершению выполнения playbook проверяем что контейнеры с elasticsearch и kibana работают, а также проверяем работу filebeat на web серверах
+По завершению выполнения playbook проверяем что контейнеры с elasticsearch и kibana работают
 
-![Скриншот-15](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom15.PNG)
+![Скриншот-23](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom23.PNG)
 
-![Скриншот-16](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom16.PNG)
+Уставноку filebeat - [log-filebeat-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-filebeat-playbook.yml)
+
+![Скриншот-24](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom24.PNG)
 
 Заходим в Kibana для проверки что логи nginx с web серверов поступают
 
