@@ -46,3 +46,7 @@ scrape_configs:
       - targets:     
         - {{ hostvars['web1'].ansible_host }}:9100
         - {{ hostvars['web2'].ansible_host }}:9100
+        - {{ hostvars['prometheus-host'].ansible_host }}:9100
+        - {{ hostvars['grafana-host'].ansible_host }}:9100
+        - {{ hostvars['elasticsearch-host'].ansible_host }}:9100
+        - {{ hostvars['kibana-host'].ansible_host }}:9100

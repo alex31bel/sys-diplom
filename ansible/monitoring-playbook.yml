@@ -4,6 +4,7 @@
   become_method: sudo
   roles:
     - prometheus
+    - node_exporter
 
 - hosts: grafana
   remote_user: mashkov
@@ -11,3 +12,4 @@
   become_method: sudo
   roles:
     - grafana
+    - node_exporter

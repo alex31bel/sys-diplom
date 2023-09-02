@@ -33,7 +33,7 @@
     owner: root
     group: grafana
     
-- name: import dashboard
+- name: import dashboard NGINX Servers Metrics
   community.grafana.grafana_dashboard:
     grafana_url: "http://{{ hostvars['grafana-host'].ansible_host }}:3000"
     grafana_user: "admin"
@@ -42,6 +42,18 @@
     commit_message: Updated by ansible
     overwrite: yes
     path: /etc/grafana/provisioning/dashboards/NGINX Servers Metrics.json
+  notify: enable grafana
+
+- name: import dashboard dashboard Node Exporter Full
+  community.grafana.grafana_dashboard:
+    grafana_url: "http://{{ hostvars['grafana-host'].ansible_host }}:3000"
+    grafana_user: "admin"
+    grafana_password: "admin"
+    state: present
+    commit_message: Updated by ansible
+    overwrite: yes
+    dashboard_id: 1860
+    dashbord_revision: 1
   notify: enable grafana
 
 - name: Return service state information as fact data
