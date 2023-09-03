@@ -44,9 +44,10 @@ scrape_configs:
     # machine by default.
     static_configs:
       - targets:     
-        - {{ hostvars['web1'].ansible_host }}:9100
-        - {{ hostvars['web2'].ansible_host }}:9100
-        - {{ hostvars['prometheus-host'].ansible_host }}:9100
-        - {{ hostvars['grafana-host'].ansible_host }}:9100
-        - {{ hostvars['elasticsearch-host'].ansible_host }}:9100
-        - {{ hostvars['kibana-host'].ansible_host }}:9100
+        - web-server1:9100
+        - web-server2:9100
+        - prometheus:9100
+        - grafana:9100
+        - elasticsearch:9100
+        - kibana:9100
+

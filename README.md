@@ -6,8 +6,8 @@
 * [Задача](#Задача)
 * [Инфраструктура](#Инфраструктура)
     * [Сайт](#Сайт)
-    * [Мониторинг](#Мониторинг)
     * [Логи](#Логи)
+    * [Мониторинг](#Мониторинг)
     * [Сеть](#Сеть)
     * [Резервное копирование](#Резервное-копирование)
 
@@ -62,6 +62,27 @@ Terraform:
 
 ![Скриншот-10](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom10.PNG)
 
+### Логи
+Запускаем playbook - [log-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-playbook.yml)
+
+По завершению выполнения playbook проверяем что контейнеры с elasticsearch и kibana работают
+
+![Скриншот-25](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom25.PNG)
+
+![Скриншот-26](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom26.PNG)
+
+Уставноку filebeat - [log-filebeat-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-filebeat-playbook.yml)
+
+![Скриншот-24](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom24.PNG)
+
+Заходим в Kibana для проверки что логи nginx с web серверов поступают
+
+![Скриншот-17](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom17.PNG)
+
+![Скриншот-18](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom18.PNG)
+
+Из лога ошибок Nginx видим что кто то пытается зайти на страницу которой нет)))
+
 ### Мониторинг
 Запускаем playbook - [monitoring-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/monitoring-playbook.yml)
 
@@ -77,30 +98,17 @@ Terraform:
 При повторном запуске playbook он выполняется полностью без ошибок.
 </details>
 
-Заходим в Grafana для проверки работоспособности нашего ранее импортированного дашборда
+Заходим в Grafana для проверки работоспособности наших ранее импортированных дашбордов 
+
+NGINX Servers Metrics:
 
 ![Скриншот-13](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom13.PNG)
 
 ![Скриншот-14](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom14.PNG)
 
-### Логи
-Запускаем playbook - [log-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-playbook.yml)
+Node Exporter Full:
 
-По завершению выполнения playbook проверяем что контейнеры с elasticsearch и kibana работают
-
-![Скриншот-23](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom23.PNG)
-
-Уставноку filebeat - [log-filebeat-playbook.yml](https://github.com/alex31bel/sys-diplom/blob/main/ansible/log-filebeat-playbook.yml)
-
-![Скриншот-24](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom24.PNG)
-
-Заходим в Kibana для проверки что логи nginx с web серверов поступают
-
-![Скриншот-17](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom17.PNG)
-
-![Скриншот-18](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom18.PNG)
-
-Из лога ошибок Nginx видим что кто то пытается зайти на страницу которой нет)))
+![Скриншот-27](https://github.com/alex31bel/sys-diplom/blob/main/img/sys-diplom27.PNG)
 
 ### Сеть
 

@@ -220,6 +220,12 @@ resource "yandex_vpc_security_group" "security-prometheus" {
     v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
   }
 
+  ingress {
+    protocol       = "TCP"
+    port           = 9100
+    v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
+  }
+
   egress {
     protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
@@ -235,6 +241,12 @@ resource "yandex_vpc_security_group" "security-public-grafana" {
     protocol       = "TCP"
     port           = 3000
     v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol       = "TCP"
+    port           = 9100
+    v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
   }
 
   egress {
@@ -254,6 +266,12 @@ resource "yandex_vpc_security_group" "security-elasticsearch" {
     v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
   }
 
+  ingress {
+    protocol       = "TCP"
+    port           = 9100
+    v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
+  }
+
   egress {
     protocol       = "ANY"
     v4_cidr_blocks = ["0.0.0.0/0"]
@@ -269,6 +287,12 @@ resource "yandex_vpc_security_group" "security-public-kibana" {
     protocol       = "TCP"
     port           = 5601
     v4_cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol       = "TCP"
+    port           = 9100
+    v4_cidr_blocks = ["192.168.10.0/24", "192.168.20.0/24", "192.168.30.0/24"]
   }
 
   egress {

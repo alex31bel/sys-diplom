@@ -52,8 +52,7 @@
     state: present
     commit_message: Updated by ansible
     overwrite: yes
-    dashboard_id: 1860
-    dashbord_revision: 1
+    dashboard_id: 12486
   notify: enable grafana
 
 - name: Return service state information as fact data
